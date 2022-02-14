@@ -1,0 +1,33 @@
+{
+    "name": "samihsoylu/lock-collector",
+    "description": "Searches for lock files in a specified directory, and deletes them if they're for more than 30 minutes old",
+    "type": "project",
+    "license": "Proprietary",
+    "autoload": {
+        "psr-4": {
+            "LockCollector\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Samih Soylu",
+            "email": "mail@samihsoylu.nl"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "sentry/sdk": "^3.1",
+        "vlucas/phpdotenv": "^5.4",
+        "symfony/console": "^4.4"
+    },
+    "config": {
+        "platform": {
+            "php": "7.2"
+        }
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "friendsofphp/php-cs-fixer": "^3.3",
+        "phpstan/phpstan": "^1.4"
+    }
+}
