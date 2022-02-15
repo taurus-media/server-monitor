@@ -1,12 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace LockCollector\CronJob;
+namespace ServerMonitor\CronJob;
 
-class ScanAndDeleteLockFiles implements CronJobInterface
+class LockCollector implements CronJobInterface
 {
+    private const DEFAULT_MAX_AGE_IN_MINS = 30;
+
     /**
+     * Scans and deleted lock files older than 30 minutes (default)
+     *
      * Required arguments:
      * - string $arguments[0] scanPath, where lock files should be searched
+     * - int $arguments[1] (optional) time in minutes
      *
      * @param array $arguments
      */
@@ -14,6 +19,7 @@ class ScanAndDeleteLockFiles implements CronJobInterface
     {
         $this->ensureRequiredFieldsAreProvided($arguments);
         $scanPath = $arguments[0];
+        $maxAgeInMins = preg_replace('/\D/', '', $arguments[1] ?? self::DEFAULT_MAX_AGE_IN_MINS);
 
         $lockFiles = glob("{$scanPath}/*.lock");
         if ($lockFiles === false) {
@@ -25,7 +31,7 @@ class ScanAndDeleteLockFiles implements CronJobInterface
             $lastModifiedDate = new \DateTime("@{$lastModifiedTimestamp}");
 
             $timeNow = new \DateTime();
-            $timeNow->sub(new \DateInterval('PT30M'));
+            $timeNow->sub(new \DateInterval("PT{$maxAgeInMins}M"));
 
             // When lock file is older than 30 mins
             if ($lastModifiedDate < $timeNow) {

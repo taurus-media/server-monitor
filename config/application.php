@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use LockCollector\Utility\Util;
+use ServerMonitor\Utility\Util;
 
 /**
  * Default PHP settings

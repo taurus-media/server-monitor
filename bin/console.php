@@ -7,12 +7,12 @@ use Symfony\Component\Finder\Finder;
 
 require_once dirname(__DIR__) . '/config/application.php';
 
-$app = new Application("Lock Collector");
+$app = new Application("Server Monitor");
 
 $finder = new Finder();
 $finder->files()->in(dirname(__DIR__) . '/src/Console/Command');
 
-$namespace = '\LockCollector\Console\Command\\';
+$namespace = '\ServerMonitor\Console\Command\\';
 foreach ($finder as $file) {
     $className = str_replace('.php', '', $file->getRelativePathname());
     $className = str_replace('/', '\\', $className);

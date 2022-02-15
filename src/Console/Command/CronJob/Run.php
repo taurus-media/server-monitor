@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace LockCollector\Console\Command\CronJob;
+namespace ServerMonitor\Console\Command\CronJob;
 
-use LockCollector\Service\CronJobService;
+use ServerMonitor\Service\CronJobService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

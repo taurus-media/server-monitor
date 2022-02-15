@@ -1,14 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace LockCollector\Service;
+namespace ServerMonitor\Service;
 
-use LockCollector\CronJob\CronJobInterface;
-use LockCollector\Utility\Util;
+use ServerMonitor\CronJob\CronJobInterface;
 
 class CronJobService
 {
     private const CRONJOB_DIR_PATH = BASE_PATH . '/src/CronJob';
-    private const CRONJOB_NAMESPACE = '\\LockCollector\\CronJob';
+    private const CRONJOB_NAMESPACE = '\\ServerMonitor\\CronJob';
 
     /**
      * @return string[]
@@ -17,13 +16,13 @@ class CronJobService
     {
         $cronjobs = glob(self::CRONJOB_DIR_PATH . '/*.php');
         if ($cronjobs === false) {
-            throw new \LogicException("Could not read cronjobs directory");
+            throw new \LogicException('Unable to read '. self::CRONJOB_DIR_PATH .' directory');
         }
 
         $fileNames = [];
         foreach ($cronjobs as $cronjobFile) {
             $fileName = str_replace([self::CRONJOB_DIR_PATH, '/', '.php'], '', $cronjobFile);
-            if (Util::stringContains($fileName, 'CronJobInterface')) {
+            if ($fileName === 'CronJobInterface') {
                 continue;
             }
 
@@ -51,8 +50,11 @@ class CronJobService
         $cronjobFullClassName = self::CRONJOB_NAMESPACE . "\\{$cronjobName}";
         $this->ensureCronjobExists($cronjobFullClassName);
 
-        /** @var CronJobInterface $cronjob */
         $cronjob = new $cronjobFullClassName();
+        if (!$cronjob instanceof CronJobInterface) {
+            throw new \LogicException("Cronjob[name={$cronjobName}] must implement CronJobInterface");
+        }
+
         $cronjob->run($cronjobArguments);
     }
 }

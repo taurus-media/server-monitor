@@ -1,6 +1,6 @@
 <?php
 
-namespace LockCollector\CronJob;
+namespace ServerMonitor\CronJob;
 
 interface CronJobInterface
 {
