@@ -3,3 +3,4 @@ vendor/*
 .env
 .DS_Store
 .php-cs-fixer.cache
+.php_cs.cache

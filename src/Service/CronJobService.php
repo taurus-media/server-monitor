@@ -3,11 +3,13 @@
 namespace LockCollector\Service;
 
 use LockCollector\CronJob\CronJobInterface;
+use LockCollector\Utility\Util;
 
 class CronJobService
 {
     private const CRONJOB_DIR_PATH = BASE_PATH . '/src/CronJob';
     private const CRONJOB_NAMESPACE = '\\LockCollector\\CronJob';
+
     /**
      * @return string[]
      */
@@ -21,6 +23,9 @@ class CronJobService
         $fileNames = [];
         foreach ($cronjobs as $cronjobFile) {
             $fileName = str_replace([self::CRONJOB_DIR_PATH, '/', '.php'], '', $cronjobFile);
+            if (Util::stringContains($fileName, 'CronJobInterface')) {
+                continue;
+            }
 
             $fileNames[] = $fileName;
         }
