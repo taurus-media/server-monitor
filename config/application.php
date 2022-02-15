@@ -16,8 +16,8 @@ require_once $pathToAutoLoader;
 $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
 $dotenv->load();
 $dotenv->required(['SENTRY_DSN']);
-$dotenv->required(['DEBUG_MODE', 'SENTRY_ENABLED'])->isBoolean();
+$dotenv->required(['DEBUG_MODE'])->isBoolean();
 
-if ($_ENV['SENTRY_ENABLED']) {
+if (strlen($_ENV['SENTRY_DSN']) > 0) {
     \Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);
 }
