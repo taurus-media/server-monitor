@@ -31,11 +31,12 @@ class ScanAndDeleteLockFiles implements CronJobInterface
             if ($lastModifiedDate < $timeNow) {
                 $isDeleted = unlink($lockFile);
                 if (!$isDeleted) {
-                    throw new \RuntimeException("Error removing file: {$lockFile}");
+                    \Sentry\captureException(new \RuntimeException("Error removing lock file: {$lockFile}"));
+                    exit();
                 }
 
                 $lockFileName = str_replace("{$scanPath}/", '', $lockFile);
-                throw new \RuntimeException("Lock file[name={$lockFileName}] found, last modified 30+ minutes ago. Lock file removed.");
+                \Sentry\captureMessage("Lock file[name={$lockFileName}] found, last modified 30+ minutes ago. Lock file removed.");
             }
         }
     }
