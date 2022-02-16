@@ -18,11 +18,16 @@ define('BASE_PATH', dirname(__DIR__));
  */
 $pathToAutoLoader = BASE_PATH . '/vendor/autoload.php';
 if (!file_exists($pathToAutoLoader)) {
-    echo "The composer autoloader can not be found, did you forget to run 'composer install --no-dev'?";
+    echo "The composer autoloader can not be found, did you forget to run 'composer install --no-dev'?\n";
     exit(1);
 }
 
 require_once $pathToAutoLoader;
+
+if (!file_exists(BASE_PATH . '/.env')) {
+    echo "Please rename and configure the .env.example file in the project root directory\n";
+    exit(1);
+}
 
 /**
  * Load environment variables
@@ -36,7 +41,8 @@ $dotenv->required(['DEBUG_MODE'])->isBoolean();
  * Initialize sentry
  */
 if (Util::stringContains($_ENV['SENTRY_DSN'], 'https://') === false) {
-    echo "Please provide a valid SENTRY_DSN url in your .env file";
+    echo "Please provide a valid SENTRY_DSN url in your .env file\n";
+    exit(1);
 }
 
 \Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);

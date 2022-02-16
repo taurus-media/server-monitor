@@ -37,8 +37,7 @@ class LockCollector implements CronJobInterface
             if ($lastModifiedDate < $timeNow) {
                 $isDeleted = unlink($lockFile);
                 if (!$isDeleted) {
-                    \Sentry\captureException(new \RuntimeException("Error removing lock file: {$lockFile}"));
-                    exit();
+                    throw new \RuntimeException("Unable to remove lock file {$lockFile}");
                 }
 
                 $lockFileName = str_replace("{$scanPath}/", '', $lockFile);

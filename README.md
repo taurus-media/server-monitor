@@ -28,17 +28,17 @@ cp .env.example .env
 * `YOUTRACK_PROJECT_CODE` Displayed in Sentry along-side with the recorded event
 
 ## Usage
-The path to `bin/console.php` needs to be updated relative to the storage location of the server monitor project respectively.
+The path to `bin/console` needs to be updated relatively to the location where the executable is called respectively.
 
 ```sh
 # List all available commands
-/usr/bin/php bin/console.php list
+/usr/bin/php bin/console list
 
 # List all cronjobs
-/usr/bin/php bin/console.php cronjob:list
+/usr/bin/php bin/console cronjob:list
 
 # Find out how to run cronjobs
-/ussr/bin/php bin/console.php cronjob:run -h
+/ussr/bin/php bin/console cronjob:run -h
 ```
 
 ## CronJobs
@@ -53,10 +53,10 @@ Sometimes Magento 2 CronJobs leave stale lock files in the home directory on a H
 
 Enable a cronjob for lock files older than `30 minutes` like this:
 ```sh
-*/5 * * * * /usr/bin/php bin/console.php cronjob:run LockCollector /path/to/scan/directory
+*/5 * * * * /usr/bin/php bin/console cronjob:run LockCollector /path/to/scan/directory
 ```
 
 You are also able to specify a custom max-age `2 hours` like this:
 ```sh
-*/5 * * * * /usr/bin/php bin/console.php cronjob:run LockCollector /path/to/scan/directory,120
+*/5 * * * * /usr/bin/php bin/console cronjob:run LockCollector /path/to/scan/directory,120
 ```
