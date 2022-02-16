@@ -21,7 +21,7 @@ class LockCollector implements CronJobInterface
         $scanPath = $arguments[0];
         $maxAgeInMins = preg_replace('/\D/', '', $arguments[1] ?? self::DEFAULT_MAX_AGE_IN_MINS);
 
-        $lockFiles = glob("{$scanPath}/*.lock");
+        $lockFiles = glob("{$scanPath}/{.[!.],}*.lock", GLOB_BRACE);
         if ($lockFiles === false) {
             throw new \LogicException("Lock files in '{$scanPath}/' could not be read");
         }

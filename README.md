@@ -3,11 +3,13 @@ Server Monitor facilitates an easy of use scripts for the purpose of monitoring 
 
 ## Requirements
 * You must be running at least PHP 7.2
+* Sentry account with a project already set-up
 
 ## Installation
 Clone the repository
 ```sh
-git clone git@github.com:NivanoHQ/server-monitor.git
+cd ~
+git clone git@bitbucket.org:taurus_media/server-monitor.git taurus-monitoring
 ```
 
 Install composer dependencies
@@ -38,7 +40,7 @@ The path to `bin/console` needs to be updated relatively to the location where t
 /usr/bin/php bin/console cronjob:list
 
 # Find out how to run cronjobs
-/ussr/bin/php bin/console cronjob:run -h
+/usr/bin/php bin/console cronjob:run -h
 ```
 
 ## CronJobs
