@@ -2,10 +2,16 @@
 
 namespace ServerMonitor\CronJob;
 
-class CpuUsageMonitor implements CronJobInterface
+class CpuUsage implements CronJobInterface
 {
     private const MAX_LOAD_AVERAGE_IN_PERCENT = 85;
 
+    /**
+     * Calculated average usage of CPU. When for 15 mins long, 85% is used on average, then it creates a sentry
+     * notification
+     *
+     * @param array $arguments
+     */
     public function run(array $arguments = []): void
     {
         $maxAllowedLoadAverage = $this->getSystemProcessorCount() * (self::MAX_LOAD_AVERAGE_IN_PERCENT / 100);
@@ -19,7 +25,7 @@ class CpuUsageMonitor implements CronJobInterface
             \Sentry\captureMessage(
                 sprintf(
                     'Average CPU load has reached %d%% for %s',
-                    self::MAX_LOAD_AVERAGE_IN_PERCENT,
+                    $averageLoadInFifteenMinutes,
                     $_ENV['YOUTRACK_PROJECT_CODE']
                 )
             );
