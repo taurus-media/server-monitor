@@ -14,8 +14,8 @@ class CpuUsageMonitor implements CronJobInterface
             throw new \RuntimeException("Could not get system load average for cpu usage monitor");
         }
 
-        $averageLoadInFiveMinutes = $systemLoadAverage[1];
-        if ($averageLoadInFiveMinutes >= $maxAllowedLoadAverage) {
+        $averageLoadInFifteenMinutes = $systemLoadAverage[2];
+        if ($averageLoadInFifteenMinutes >= $maxAllowedLoadAverage) {
             \Sentry\captureMessage(
                 sprintf(
                     'Average CPU load has reached %d%% for %s',
