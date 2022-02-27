@@ -6,29 +6,13 @@ class CpuUsage implements CronJobInterface
 {
     private const MAX_LOAD_AVERAGE_IN_PERCENT = 85;
 
-    /**
-     * Calculated average usage of CPU. When for 15 mins long, 85% is used on average, then it creates a sentry
-     * notification
-     *
-     * @param array $arguments
-     */
     public function run(array $arguments = []): void
     {
-        $maxAllowedLoadAverage = $this->getSystemProcessorCount() * (self::MAX_LOAD_AVERAGE_IN_PERCENT / 100);
-        $systemLoadAverage = sys_getloadavg();
-        if ($systemLoadAverage === false) {
-            throw new \RuntimeException("Could not get system load average for cpu usage monitor");
-        }
+        $systemLoadAverage = $this->getSystemLoadAverage();
+        $loadAverageInFifteenMinutes = $systemLoadAverage[2];
 
-        $averageLoadInFifteenMinutes = $systemLoadAverage[2];
-        if ($averageLoadInFifteenMinutes >= $maxAllowedLoadAverage) {
-            \Sentry\captureMessage(
-                sprintf(
-                    'Average CPU load has reached %d%% for %s',
-                    $averageLoadInFifteenMinutes,
-                    $_ENV['YOUTRACK_PROJECT_CODE']
-                )
-            );
+        if ($loadAverageInFifteenMinutes >= $this->getAllowedThreshold()) {
+            $this->sendNotificationToSentry($loadAverageInFifteenMinutes);
         }
     }
 
@@ -57,5 +41,33 @@ class CpuUsage implements CronJobInterface
         }
 
         throw new \LogicException("Failed to detect number of CPUs available on system");
+    }
+
+    private function getAllowedThreshold(): float
+    {
+        return $this->getSystemProcessorCount() * (self::MAX_LOAD_AVERAGE_IN_PERCENT / 100);
+    }
+
+    /**
+     * @return float[]
+     */
+    private function getSystemLoadAverage(): array
+    {
+        $systemLoadAverage = sys_getloadavg();
+        if ($systemLoadAverage === false) {
+            throw new \RuntimeException("Could not get system load average for cpu usage monitor");
+        }
+        return $systemLoadAverage;
+    }
+
+    private function sendNotificationToSentry(float $loadAverage) : void
+    {
+        \Sentry\captureMessage(
+            sprintf(
+                'Average CPU load has reached %d%% for %s',
+                $loadAverage,
+                $_ENV['YOUTRACK_PROJECT_CODE']
+            )
+        );
     }
 }
