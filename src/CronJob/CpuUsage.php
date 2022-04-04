@@ -12,7 +12,8 @@ class CpuUsage implements CronJobInterface
         $loadAverageInFifteenMinutes = $systemLoadAverage[2];
 
         if ($loadAverageInFifteenMinutes >= $this->getAllowedThreshold()) {
-            $this->sendNotificationToSentry($loadAverageInFifteenMinutes);
+            $loadAveragePercentage = ($loadAverageInFifteenMinutes / $this->getSystemProcessorCount()) * 100;
+            $this->sendNotificationToSentry($loadAveragePercentage);
         }
     }
 
