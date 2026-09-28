@@ -127,9 +127,9 @@ Recursively scans a directory and reports files larger than the threshold, e.g. 
 php bin/console check:large-files [<path>] [--threshold=THRESHOLD] [--notify]
 ```
 
-| Argument | Default     | Description                        |
-|----------|-------------|------------------------------------|
-| `path`   | `/data/web` | Directory to scan (recursive).     |
+| Argument | Default        | Description                    |
+|----------|----------------|--------------------------------|
+| `path`   | `MAGENTO_ROOT` | Directory to scan (recursive). |
 
 | Option        | Default | Description                                                                   |
 |---------------|---------|-------------------------------------------------------------------------------|
@@ -138,8 +138,8 @@ php bin/console check:large-files [<path>] [--threshold=THRESHOLD] [--notify]
 
 ```console
 $ php bin/console check:large-files
-Files larger than 100 MB in /data/web: 2
-Large file (1.4 GB) found: /data/web/magento2/backup.sql.gz for LLTQ
+Files larger than 100 MB in /data/web/magento2/current: 2
+Large file (1.4 GB) found: /data/web/magento2/current/var/backups/backup.sql.gz for LLTQ
 Large file (312.5 MB) found: /data/web/magento2/current/var/log/system.log for LLTQ
 ```
 
