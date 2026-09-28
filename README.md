@@ -43,6 +43,12 @@ Edit `.env` (see [Configuration](#configuration)), then verify the installation:
 php bin/console list check
 ```
 
+Finally, set up automated monitoring by adding all checks to the crontab (see [Scheduling with cron](#scheduling-with-cron)):
+
+```sh
+php bin/console cron:install
+```
+
 ## Configuration
 
 All settings live in the `.env` file in the project root.
