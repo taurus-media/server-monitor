@@ -47,14 +47,14 @@ php bin/console list check
 
 All settings live in the `.env` file in the project root.
 
-| Variable                | Required | Default                       | Description                                                                                                                |
-|-------------------------|----------|-------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `YOUTRACK_PROJECT_CODE` | yes      |                               | YouTrack project code, included in notifications.                                                                          |
-| `MAGENTO_ROOT`          | yes      | `/data/web/magento2/current`  | Absolute path to the Magento root.                                                                                         |
-| `DB_NAME`               | yes      |                               | Magento database name. Host, user and password are read from the `[client]` section of `~/.my.cnf`.                       |
-| `NOTIFIER`              | no       | `slack`                       | Where `--notify` sends issues to: `slack` or `sentry`.                                                                     |
-| `SLACK_WEBHOOK_URL`     | no       |                               | [Slack incoming webhook](https://api.slack.com/messaging/webhooks) URL of the channel. Required only when `NOTIFIER=slack`. |
-| `SENTRY_DSN`            | no       |                               | Sentry DSN (`https://...`). Required only when `NOTIFIER=sentry`.                                                          |
+| Variable                | Required | Default                       | Description                                                                                                                                                 |
+|-------------------------|----------|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `YOUTRACK_PROJECT_CODE` | yes      |                               | YouTrack project code, included in notifications.                                                                                                           |
+| `MAGENTO_ROOT`          | yes      | `/data/web/magento2/current`  | Absolute path to the Magento root.                                                                                                                          |
+| `DB_NAME`               | yes      |                               | Magento database name. Host, user and password are read from the `[client]` section of `~/.my.cnf`.                                                         |
+| `NOTIFIER`              | no       | `slack`                       | Where `--notify` sends issues to: `slack` or `sentry`.                                                                                                      |
+| `SLACK_WEBHOOK_URL`     | no       |                               | [Slack incoming webhook](https://api.slack.com/messaging/webhooks) URL of the channel, stored in the password manager. Required only when `NOTIFIER=slack`. |
+| `SENTRY_DSN`            | no       |                               | Sentry DSN (`https://...`). Required only when `NOTIFIER=sentry`.                                                                                           |
 
 ## Usage
 
