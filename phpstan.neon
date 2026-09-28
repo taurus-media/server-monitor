@@ -6,5 +6,5 @@ parameters:
         - src/
         - config/
     excludePaths:
-        - tests
-        - vendor
+        - tests (?)
+        - vendor (?)

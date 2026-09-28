@@ -1,5 +1,5 @@
 {
-    "name": "nivanohq/server-monitor",
+    "name": "taurus-media/server-monitor",
     "description": "Server Monitor facilitates an easy of use scripts for the purpose of monitoring VPSs. Each script available can be triggered periodically on the target VPS. Each individual script is designed to work on any VPS that has PHP available.",
     "type": "project",
     "license": "Proprietary",
@@ -8,27 +8,25 @@
             "ServerMonitor\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Samih Soylu",
-            "email": "mail@samihsoylu.nl"
-        }
-    ],
     "minimum-stability": "stable",
     "require": {
-        "sentry/sdk": "^3.1",
-        "vlucas/phpdotenv": "^5.4",
-        "symfony/console": "^4.4",
-        "symfony/finder": "^4.4"
+        "php": ">=8.2",
+        "ext-curl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "sentry/sentry": "^4.10",
+        "vlucas/phpdotenv": "^5.6",
+        "symfony/console": "^7.4",
+        "symfony/finder": "^7.4"
     },
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "8.2.0"
         }
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "friendsofphp/php-cs-fixer": "^3.3",
-        "phpstan/phpstan": "^1.4"
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2.1"
     }
 }

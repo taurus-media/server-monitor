@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-use ServerMonitor\Utility\Util;
-
 /**
  * Default PHP settings
  */
@@ -34,22 +32,4 @@ if (!file_exists(BASE_PATH . '/.env')) {
  */
 $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
 $dotenv->load();
-$dotenv->required(['SENTRY_DSN', 'PROJECT_NAME', 'YOUTRACK_PROJECT_CODE']);
-$dotenv->required(['DEBUG_MODE'])->isBoolean();
-
-/**
- * Initialize sentry
- */
-if (Util::stringContains($_ENV['SENTRY_DSN'], 'https://') === false) {
-    echo "Please provide a valid SENTRY_DSN url in your .env file\n";
-    exit(1);
-}
-
-\Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);
-
-\Sentry\configureScope(function (\Sentry\State\Scope $scope): void {
-    $scope->setContext('project', [
-        'Project Name' => $_ENV['PROJECT_NAME'],
-        'YouTrack Project Code' => $_ENV['YOUTRACK_PROJECT_CODE'],
-    ]);
-});
+$dotenv->required(['YOUTRACK_PROJECT_CODE']);
