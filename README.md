@@ -31,7 +31,7 @@ A small set of console checks for monitoring a VPS (e.g. a Hypernode). Each chec
 
 ```sh
 cd ~
-git clone git@bitbucket.org:taurus_media/server-monitor.git taurus-monitoring
+git clone git@github.com:taurus-media/server-monitor.git taurus-monitoring
 cd taurus-monitoring
 composer install --no-dev
 cp .env.example .env
