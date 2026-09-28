@@ -15,7 +15,7 @@ class LargeFileScanner extends AbstractMonitorCommand
 {
     private const ARGUMENT_PATH = 'path';
     private const OPTION_THRESHOLD = 'threshold';
-    private const DEFAULT_PATH = '/data/web';
+    private const DEFAULT_PATH = '/data/web/magento2';
     private const DEFAULT_THRESHOLD = '100M';
     private const UNITS = ['B', 'K', 'M', 'G', 'T'];
 
