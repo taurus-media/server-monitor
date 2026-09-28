@@ -40,4 +40,18 @@ class CronLog extends AbstractMonitorCommand
 
         return ["Magento cron seems stuck: {$cronLogFile} last updated {$minutesAgo} minutes ago for {$_ENV['YOUTRACK_PROJECT_CODE']}"];
     }
+
+    private function getMagentoRoot(): string
+    {
+        $magentoRoot = rtrim(trim((string)($_ENV['MAGENTO_ROOT'] ?? '')), '/');
+        if ($magentoRoot === '') {
+            throw new \LogicException('Please configure MAGENTO_ROOT in your .env file');
+        }
+
+        if (!is_dir($magentoRoot)) {
+            throw new \LogicException("MAGENTO_ROOT directory '{$magentoRoot}' does not exist");
+        }
+
+        return $magentoRoot;
+    }
 }

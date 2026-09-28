@@ -15,21 +15,20 @@ class LargeFileScanner extends AbstractMonitorCommand
 {
     private const ARGUMENT_PATH = 'path';
     private const OPTION_THRESHOLD = 'threshold';
+    private const DEFAULT_PATH = '/data/web';
     private const DEFAULT_THRESHOLD = '100M';
     private const UNITS = ['B', 'K', 'M', 'G', 'T'];
 
     protected function configure(): void
     {
         parent::configure();
-        $this->addArgument(self::ARGUMENT_PATH, InputArgument::OPTIONAL, 'Directory to scan recursively (defaults to MAGENTO_ROOT from .env)');
+        $this->addArgument(self::ARGUMENT_PATH, InputArgument::OPTIONAL, 'Directory to scan recursively', self::DEFAULT_PATH);
         $this->addOption(self::OPTION_THRESHOLD, null, InputOption::VALUE_REQUIRED, 'File size threshold, e.g. 500K, 200M or 1G', self::DEFAULT_THRESHOLD);
     }
 
     protected function check(InputInterface $input, OutputInterface $output): array
     {
-        $scanPath = $input->getArgument(self::ARGUMENT_PATH) === null
-            ? $this->getMagentoRoot()
-            : $this->getDirectoryArgument($input, self::ARGUMENT_PATH);
+        $scanPath = $this->getDirectoryArgument($input, self::ARGUMENT_PATH);
         $threshold = $this->getSizeOption($input, self::OPTION_THRESHOLD);
 
         $largeFiles = $this->findLargeFiles($scanPath, $threshold);
